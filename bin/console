@@ -1,8 +1,8 @@
 #!/usr/bin/env php
 <?php
 /**
- * Console application for WFP2 Typo3 Standard installation.
- * @author Sebastian Seidelmann <sebastian.seidelmann@wfp2.com>, wfp:2 GmbH & Co. KG
+ * Console application for Typo3 Standard installation.
+ * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
  */
 
 set_time_limit(0);
@@ -13,7 +13,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $app        = new Symfony\Component\Console\Application();
 
 $finder = new \Symfony\Component\Finder\Finder();
-$files = $finder->files()->in(WFP2Environment::getExtPath())->name('*Command.php');
+$files = $finder->files()->in(Environment::getExtPath())->name('*Command.php');
 
 /* @var $file \Symfony\Component\Finder\SplFileInfo */
 foreach ($files as $file) {
@@ -26,7 +26,7 @@ $argvInput = new \Symfony\Component\Console\Input\ArgvInput();
 $output    = new \Symfony\Component\Console\Output\ConsoleOutput();
 
 $output->writeln('');
-$output->writeln('<fg=red>wfp:2 console</fg=red> version <fg=yellow>' . WFP2_TYPO3_BASE_VERSION . '</fg=yellow>');
+$output->writeln('<fg=red>typo3 console</fg=red> version <fg=yellow>' . TYPO3_BASE_VERSION . '</fg=yellow>');
 $output->writeln('');
 
 $app->run($argvInput, $output);
