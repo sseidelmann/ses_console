@@ -4,6 +4,7 @@
   "type": "typo3-cms-extension",
   "description": "Typo3 console extension",
   "require": {
-    "php": ">=5.3.9"
+    "php": ">=5.3.9",
+    "symfony/console": "~2.7.0"
   }
 }
