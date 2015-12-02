@@ -1,5 +1,5 @@
 {
-  "name": "ses/console",
+  "name": "sseidelmann/ses_console",
   "license": "MIT",
   "type": "typo3-cms-extension",
   "description": "Typo3 console extension",
