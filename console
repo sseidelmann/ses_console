@@ -1,0 +1,53 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Console application for WFP2 Typo3 Standard installation.
+ * @author Sebastian Seidelmann <sebastian.seidelmann@wfp2.com>, wfp:2 GmbH & Co. KG
+ */
+
+set_time_limit(0);
+date_default_timezone_set('Europe/Berlin');
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$app        = new Symfony\Component\Console\Application();
+
+$finder = new \Symfony\Component\Finder\Finder();
+$files = $finder->files()->in(WFP2Environment::getExtPath())->name('*Command.php');
+
+/* @var $file \Symfony\Component\Finder\SplFileInfo */
+foreach ($files as $file) {
+    require_once $file->getPathname();
+    $className = extractNamespace($file->getPathname()) . '\\' . $file->getBasename('.' . $file->getExtension());
+    $app->add(new $className());
+}
+
+$argvInput = new \Symfony\Component\Console\Input\ArgvInput();
+$output    = new \Symfony\Component\Console\Output\ConsoleOutput();
+
+$output->writeln('');
+$output->writeln('<fg=red>wfp:2 console</fg=red> version <fg=yellow>' . WFP2_TYPO3_BASE_VERSION . '</fg=yellow>');
+$output->writeln('');
+
+$app->run($argvInput, $output);
+
+/**
+ * Extracts the namespace from the filepath.
+ * @param string $file the filepath
+ * @return string
+ */
+function extractNamespace($file) {
+    $ns = NULL;
+    $handle = fopen($file, "r");
+    if ($handle) {
+        while (($line = fgets($handle)) !== false) {
+            if (strpos($line, 'namespace') === 0) {
+                $parts = explode(' ', $line);
+                $ns = rtrim(trim($parts[1]), ';');
+                break;
+            }
+        }
+        fclose($handle);
+    }
+    return $ns;
+}
