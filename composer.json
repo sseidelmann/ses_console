@@ -5,6 +5,7 @@
   "description": "Typo3 console extension",
   "require": {
     "php": ">=5.3.9",
-    "symfony/console": "~2.7.0"
+    "symfony/console": "~2.7.0",
+    "symfony/finder": "~2.7.0"
   }
 }
