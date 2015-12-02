@@ -1,4 +1,9 @@
 {
   "name": "ses/console",
-  "type": "typo3-cms-extension"
+  "license": "MIT",
+  "type": "typo3-cms-extension",
+  "description": "Typo3 console extension",
+  "require": {
+    "php": ">=5.3.9"
+  }
 }
